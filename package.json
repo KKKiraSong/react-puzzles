@@ -1,0 +1,50 @@
+{
+    "name": "React-Blocks",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "commit": "git-cz"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@commitlint/cli": "^12.1.4",
+        "@commitlint/config-conventional": "^12.1.4",
+        "@types/react": "^17.0.11",
+        "@types/react-dom": "^17.0.8",
+        "@umijs/fabric": "^2.6.2",
+        "commitizen": "^4.2.4",
+        "cz-conventional-changelog": "^3.3.0",
+        "husky": "^6.0.0",
+        "lint-staged": "^11.0.0",
+        "prettier": "^2.3.1",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "typescript": "^4.3.4"
+    },
+    "lint-staged": {
+        "components/**/*.ts?(x)": [
+            "prettier --write",
+            "eslint --fix",
+            "git add"
+        ],
+        "components/**/*.less": [
+            "stylelint --syntax less --fix",
+            "git add"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+            "pre-commit": "lint-staged"
+        }
+    },
+    "config": {
+        "commitizen": {
+            "path": "cz-conventional-changelog"
+        }
+    }
+}
