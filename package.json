@@ -5,7 +5,11 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "commit": "git-cz"
+        "commit": "git-cz",
+        "dev": "docz dev",
+        "start": "npm run dev",
+        "build:doc": "rimraf doc-site && docz build",
+        "preview:doc": "docz serve"
     },
     "keywords": [],
     "author": "",
@@ -18,11 +22,23 @@
         "@umijs/fabric": "^2.6.2",
         "commitizen": "^4.2.4",
         "cz-conventional-changelog": "^3.3.0",
+        "docz": "^2.3.1",
+        "gatsby-plugin-less": "^5.8.0",
         "husky": "^6.0.0",
+        "less": "^4.1.1",
         "lint-staged": "^11.0.0",
         "prettier": "^2.3.1",
+        "prismjs": "^1.24.0",
+        "raw-loader": "^4.0.2",
         "react": "^17.0.2",
+        "react-copy-to-clipboard": "^5.0.3",
         "react-dom": "^17.0.2",
+        "react-feather": "^2.0.9",
+        "react-simple-code-editor": "^0.11.0",
+        "react-tooltip": "^4.2.21",
+        "react-use": "^17.2.4",
+        "rimraf": "^3.0.2",
+        "styled-components": "^5.3.0",
         "typescript": "^4.3.4"
     },
     "lint-staged": {
