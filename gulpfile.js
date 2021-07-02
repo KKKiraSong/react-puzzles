@@ -12,7 +12,11 @@ const paths = {
         dist: 'dist', // umd文件存放的目录名 - 暂时不关心
     },
     styles: 'components/**/*.less', // 样式文件路径 - 暂时不关心
-    scripts: ['components/**/*.{ts,tsx}', '!components/**/demo/*.{ts,tsx}'], // 脚本文件路径
+    scripts: [
+        'components/**/*.{ts,tsx}',
+        '!components/**/demo/*.{ts,tsx}',
+        '!components/**/__tests__/*.{ts,tsx}',
+    ], // 脚本文件路径
 };
 
 function cssInjection(content) {
