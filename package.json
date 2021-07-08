@@ -6,7 +6,7 @@
     "typings": "lib/index.d.ts",
     "module": "esm/index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "commit": "git-cz",
         "dev": "docz dev",
         "start": "npm run dev",
@@ -15,10 +15,10 @@
         "build:types": "tsc -p tsconfig.build.json && cpr lib esm",
         "clean": "rimraf lib esm dist",
         "build": "npm run clean && npm run build:types && gulp",
-        "test": "jest",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
-        "test:update": "jest --updateSnapshot"
+        "test:update": "jest --updateSnapshot",
+        "new": "plop --plopfile ./scripts/plopfile.ts"
     },
     "keywords": [],
     "author": "",
@@ -54,6 +54,7 @@
         "jest": "^27.0.6",
         "less": "^4.1.1",
         "lint-staged": "^11.0.0",
+        "plop": "^2.7.4",
         "prettier": "^2.3.1",
         "prismjs": "^1.24.0",
         "raw-loader": "^4.0.2",
@@ -77,7 +78,10 @@
             "jest --bail --findRelatedTests",
             "git add"
         ],
-        "components/**/*.less": ["stylelint --syntax less --fix", "git add"]
+        "components/**/*.less": [
+            "stylelint --syntax less --fix",
+            "git add"
+        ]
     },
     "husky": {
         "hooks": {
