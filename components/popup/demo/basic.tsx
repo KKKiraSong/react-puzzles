@@ -1,5 +1,24 @@
-import React from 'react';
-// import { Popup } from 'happy-ui';
-import Portal from 'react-blocks/lib/popup/portal';
+import React, { useRef, useState, useEffect } from 'react';
+import Popup from '../popup';
+import '../style/index.less';
+import './basic.less';
 
-export default () => <Portal>1234</Portal>;
+export default () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [portal, setPortal] = useState<HTMLDivElement | null>(null);
+
+  useEffect(() => setPortal(containerRef.current), [containerRef.current]);
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        position: 'relative',
+        width: '375px',
+        height: '812px',
+        background: 'lightblue',
+      }}
+    >
+      <Popup node={portal} wrapperClassName="basic-wrapper"></Popup>
+    </div>
+  );
+};

@@ -1,0 +1,210 @@
+@popupPrefix: react-blocks-popup;
+@popupAnimationPrefix: react-blocks-popup-animation;
+@animationDuration: var(--animation-duration, 300ms);
+
+.@{popupPrefix}-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+
+  &__center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .@{popupPrefix}-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: none;
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.72);
+    pointer-events: auto;
+
+    &__visible {
+      display: block;
+    }
+  }
+
+  .@{popupPrefix}-content {
+    background-color: #ffffff;
+    pointer-events: auto;
+
+    &__center {
+      z-index: 9999;
+      width: 70vw;
+      height: 30vh;
+    }
+
+    &__top {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      z-index: 9999;
+      width: 100vw;
+      height: 30vh;
+    }
+
+    &__bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      z-index: 9999;
+      width: 100vw;
+      height: 30vh;
+    }
+
+    &__left {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      z-index: 9999;
+      width: 30vw;
+      height: 100vh;
+    }
+
+    &__right {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      z-index: 9999;
+      width: 30vw;
+      height: 100vh;
+    }
+  }
+}
+
+.@{popupAnimationPrefix} {
+  /* fade */
+  &-fade-enter,
+  &-fade-appear,
+  &-fade-exit-done {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &-fade-appear-active,
+  &-fade-enter-active {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity @animationDuration ease-in-out, visibility @animationDuration ease-in-out;
+  }
+
+  &-fade-exit,
+  &-fade-enter-done {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &-fade-exit-active {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity @animationDuration ease-in-out, visibility @animationDuration ease-in-out;
+  }
+
+  /* top-slide */
+  &-top-slide-enter,
+  &-top-slide-appear,
+  &-top-slide-exit-done {
+    transform: translate(0, -100%);
+  }
+
+  &-top-slide-appear-active,
+  &-top-slide-enter-active {
+    transform: translate(0, 0);
+    transition: transform @animationDuration;
+  }
+
+  &-top-slide-exit,
+  &-top-slide-enter-done {
+    transform: translate(0, 0);
+  }
+
+  &-top-slide-exit-active {
+    transform: translate(0, -100%);
+    transition: transform @animationDuration;
+  }
+
+  /* right-slide */
+  &-right-slide-enter,
+  &-right-slide-appear,
+  &-right-slide-exit-done {
+    transform: translate(100%, 0);
+  }
+
+  &-right-slide-appear-active,
+  &-right-slide-enter-active {
+    transform: translate(0, 0);
+    transition: transform @animationDuration;
+  }
+
+  &-right-slide-exit,
+  &-right-slide-enter-done {
+    transform: translate(0, 0);
+  }
+
+  &-right-slide-exit-active {
+    transform: translate(100%, 0);
+    transition: transform @animationDuration;
+  }
+
+  /* bottom-slide */
+  &-bottom-slide-enter,
+  &-bottom-slide-appear,
+  &-bottom-slide-exit-done {
+    transform: translate(0, 100%);
+  }
+
+  &-bottom-slide-appear-active,
+  &-bottom-slide-enter-active {
+    transform: translate(0, 0);
+    transition: transform @animationDuration;
+  }
+
+  &-bottom-slide-exit,
+  &-bottom-slide-enter-done {
+    transform: translate(0, 0);
+  }
+
+  &-bottom-slide-exit-active {
+    transform: translate(0, 100%);
+    transition: transform @animationDuration;
+  }
+
+  /* left-slide */
+  &-left-slide-enter,
+  &-left-slide-appear,
+  &-left-slide-exit-done {
+    transform: translate(-100%, 0);
+  }
+
+  &-left-slide-appear-active,
+  &-left-slide-enter-active {
+    transform: translate(0, 0);
+    transition: transform @animationDuration;
+  }
+
+  &-left-slide-exit,
+  &-left-slide-enter-done {
+    transform: translate(0, 0);
+  }
+
+  &-left-slide-exit-active {
+    transform: translate(-100%, 0);
+    transition: transform @animationDuration;
+  }
+}

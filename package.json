@@ -1,6 +1,6 @@
 {
   "name": "React-Blocks",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -34,9 +34,11 @@
     "@commitlint/config-conventional": "^12.1.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
+    "@types/classnames": "^2.3.1",
     "@types/jest": "^26.0.23",
     "@types/react": "^17.0.11",
     "@types/react-dom": "^17.0.8",
+    "@types/react-transition-group": "^4.4.2",
     "@types/testing-library__react": "^10.2.0",
     "@umijs/fabric": "^2.6.2",
     "commitizen": "^4.2.4",
@@ -92,6 +94,8 @@
     }
   },
   "dependencies": {
-    "@babel/runtime": "^7.14.6"
+    "@babel/runtime": "^7.14.6",
+    "classnames": "^2.3.1",
+    "react-transition-group": "^4.4.2"
   }
 }
