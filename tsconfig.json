@@ -1,22 +1,23 @@
 {
-    "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "react-blocks": ["components/index.ts"],
-            "react-blocks/esm/*": ["components/*"],
-            "react-blocks/lib/*": ["components/*"]
-        },
-        "target": "esnext",
-        "module": "commonjs",
-        "jsx": "react",
-        "declaration": true,
-        "declarationDir": "lib",
-        "strict": true,
-        "moduleResolution": "node",
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "resolveJsonModule": true
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "react-puzzles": ["components/index.ts"],
+      "react-puzzles/esm/*": ["components/*"],
+      "react-puzzles/lib/*": ["components/*"]
     },
-    "include": ["components", "global.d.ts"],
-    "exclude": ["components/**/demo", "components/**/__tests__"]
+    "target": "esnext",
+    "module": "commonjs",
+    "jsx": "react",
+    "declaration": true,
+    "declarationDir": "lib",
+    "strict": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "emitDeclarationOnly": true
+  },
+  "include": ["components", "global.d.ts"],
+  "exclude": ["node_modules"]
 }

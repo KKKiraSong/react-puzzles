@@ -2,7 +2,7 @@
 import { NodePlopAPI } from 'plop';
 import path from 'path';
 
-export default function(plop: NodePlopAPI) {
+export default function (plop: NodePlopAPI) {
   plop.setGenerator('component', {
     description: '创建一个新组件',
     prompts: [
