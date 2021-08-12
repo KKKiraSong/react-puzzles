@@ -1,6 +1,6 @@
 {
-  "name": "react-blocks",
-  "version": "0.0.1",
+  "name": "react-puzzles",
+  "version": "0.0.3",
   "description": "",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",

@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-blocks": ["components/index.ts"],
-      "react-blocks/esm/*": ["components/*"],
-      "react-blocks/lib/*": ["components/*"]
+      "react-puzzles": ["components/index.ts"],
+      "react-puzzles/esm/*": ["components/*"],
+      "react-puzzles/lib/*": ["components/*"]
     },
     "target": "esnext",
     "module": "commonjs",
@@ -18,5 +18,6 @@
     "resolveJsonModule": true,
     "emitDeclarationOnly": true
   },
-  "include": ["components", "global.d.ts"]
+  "include": ["components", "global.d.ts"],
+  "exclude": ["node_modules"]
 }
