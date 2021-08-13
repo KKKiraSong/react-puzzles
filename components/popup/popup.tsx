@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { CSSTransition } from 'react-transition-group';
+
 import Portal from './portal';
 import { PopupProps, Position, PositionMap } from './interface';
 import { PREFIX_CLS, ANIMATION_PREFIX_CLS, DEFAULT_ANIMATION_DURATION } from './constants';
@@ -11,18 +12,19 @@ const Popup = ({
   node,
   children,
   visible,
+  position = PostionEnum.CENTER as Position,
+  duration = DEFAULT_ANIMATION_DURATION,
   wrapperClassName,
   wrapperStyle,
   maskClassName,
   maskStyle,
   contentClassName,
   contentStyle,
-  position = PostionEnum.CENTER as Position,
   mask = true,
   maskClosable = false,
   destroyOnClose = false,
   onClose = () => {},
-  duration = DEFAULT_ANIMATION_DURATION,
+  afterClose = () => {},
 }: PopupProps) => {
   const firstRenderingRef = useRef(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -70,6 +72,7 @@ const Popup = ({
           timeout={duration}
           appear
           unmountOnExit={destroyOnClose}
+          onExited={afterClose}
         >
           <div
             className={classnames(
@@ -108,6 +111,22 @@ const Popup = ({
       </div>
     </Portal>
   );
+};
+
+Popup.propTypes = {
+  node: PropTypes.node,
+  visible: PropTypes.bool,
+  position: PropTypes.oneOf(['top', 'right', 'bottom', 'left', 'center']),
+  duration: PropTypes.number,
+  wrapperClassName: PropTypes.string,
+  wrapperStyle: PropTypes.object,
+  contentClassName: PropTypes.string,
+  contentStyle: PropTypes.object,
+  mask: PropTypes.bool,
+  maskClosable: PropTypes.bool,
+  destroyOnClose: PropTypes.bool,
+  onClose: PropTypes.func,
+  afterClose: PropTypes.func,
 };
 
 export default Popup;
