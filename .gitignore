@@ -17,6 +17,8 @@
 /lib
 /esm
 /types
+/.docz
+/doc-site
 
 # misc
 .DS_Store

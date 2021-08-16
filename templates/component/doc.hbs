@@ -1,0 +1,28 @@
+---
+name: {{pascalCase name}} {{CN}}
+route: /components/{{kebabCase name}}
+menu: 组件
+---
+
+import RpBox from '../../doc-comps/rp-box';
+
+import BasicDemo from './demo/basic';
+import BasicDemoCode from '!raw-loader!./demo/basic';
+
+## {{pascalCase name}} {{CN}}
+
+{{description}}
+
+### 代码演示
+
+#### 基本使用
+
+<Rp code={BasicDemoCode} title="" desc="">
+  <BasicDemo></BasicDemo>
+</RpBox>
+
+
+### API
+
+| 属性 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |

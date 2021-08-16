@@ -1,14 +1,8 @@
 import React from 'react';
-import { Props } from './interface';
+import { {{pascalCase name}}Props } from './interface';
 
-const defaultProps = {
-
+const {{pascalCase name}} = ({}: {{pascalCase name}}Props) => {
+  return <>{{pascalCase name}}</>;
 };
 
-const {{pascalCase name}}: React.FC<Props> = userProps => {
-  const props = { ...defaultProps, ...userProps };
-
-  return <>{{pascalCase name}}</>;
-  };
-
-  export default {{pascalCase name}};
+export default {{pascalCase name}};

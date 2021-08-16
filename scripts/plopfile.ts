@@ -47,11 +47,6 @@ export default function (plop: NodePlopAPI) {
         templateFile: path.resolve(__dirname, '../templates/component/demo/basic.hbs'),
       },
       {
-        type: 'add',
-        path: path.resolve(__dirname, '../components/{{kebabCase name}}/__tests__/index.test.tsx'),
-        templateFile: path.resolve(__dirname, '../templates/component/__tests__/index.test.hbs'),
-      },
-      {
         type: 'append',
         path: path.resolve(__dirname, '../components/index.ts'),
         pattern: '/* PLOP_INJECT_EXPORT */',
