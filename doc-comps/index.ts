@@ -1,3 +1,3 @@
-import RbBox from './rb-box';
+import RpBox from './rp-box';
 
-export { RbBox };
+export { RpBox };
