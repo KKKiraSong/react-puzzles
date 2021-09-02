@@ -1,0 +1,22 @@
+@carouselPrefix: react-puzzles-carousel;
+
+.@{carouselPrefix}-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 200px;
+  overflow: hidden;
+
+  .@{carouselPrefix}-track {
+    display: flex;
+    touch-action: pan-x;
+
+    &-vertical {
+      flex-direction: column;
+      touch-action: pan-y;
+    }
+
+    &-animation {
+      transition: transform ease 1s;
+    }
+  }
+}

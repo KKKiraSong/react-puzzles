@@ -69,7 +69,10 @@
       "jest --bail --findRelatedTests",
       "git add"
     ],
-    "components/**/*.less": ["stylelint --syntax less --fix", "git add"]
+    "components/**/*.less": [
+      "stylelint --syntax less --fix",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
