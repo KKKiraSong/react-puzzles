@@ -6,6 +6,9 @@
   height: 200px;
   overflow: hidden;
 
+  /* 启用GPU加速渲染 */
+  transform: translate3d(0, 0, 0);
+
   .@{carouselPrefix}-track {
     display: flex;
     touch-action: pan-x;
@@ -16,7 +19,7 @@
     }
 
     &-animation {
-      transition: transform ease 1s;
+      transition: transform ease 0.3s;
     }
   }
 }

@@ -48,6 +48,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
               flexShrink: 0,
               width: slideWidth ? `${slideWidth}px` : '100%',
               height: slideHeight ? `${slideHeight}px` : 'auto',
+              transform: 'translate3d(0, 0, 0)', // 启用GPU加速slide渲染，解决iOS中平移动画slide闪烁问题
             }}
           >
             {child}
@@ -163,8 +164,8 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
           height,
           transform:
             typeof trackTranslate === 'number'
-              ? `translateX(${trackTranslate}px)`
-              : `translateX(${trackTranslate})`,
+              ? `translate3d(${trackTranslate}px, 0, 0)`
+              : `translate3d(${trackTranslate}, 0, 0)`,
         };
       }
 
@@ -181,8 +182,8 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
         height,
         transform:
           typeof trackTranslate === 'number'
-            ? `translateY(${trackTranslate}px)`
-            : `translateY(${trackTranslate})`,
+            ? `translate3d(0, ${trackTranslate}px, 0)`
+            : `translate3d(0, ${trackTranslate}, 0)`,
       };
     }, [vertical, slideWidth, slideHeight, infinite, React.Children.count(children), currentSlide]);
 
@@ -226,13 +227,13 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
           const slideRate = slideOutOfBounds(slideDistance) ? 0.5 : 1;
 
           if (!vertical) {
-            trackRef.current.style.transform = `translateX(${
+            trackRef.current.style.transform = `translate3d(${
               trackTranslate + slideRate * slideDistance
-            }px)`;
+            }px, 0, 0)`;
           } else {
-            trackRef.current.style.transform = `translateY(${
+            trackRef.current.style.transform = `translate3d(0, ${
               trackTranslate + slideRate * slideDistance
-            }px)`;
+            }px, 0)`;
           }
         }
       },
@@ -255,10 +256,11 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
             return;
           }
 
+          setAnimationPaused(false);
           setAnimationFlag(true);
           trackRef.current.style.transform = !vertical
-            ? `translateX(${trackTranslate}px)`
-            : `translateY(${trackTranslate}px)`;
+            ? `translate3d(${trackTranslate}px, 0, 0)`
+            : `translate3d(0, ${trackTranslate}px, 0)`;
         } else {
           changeSlide({ message: slideDistance < 0 ? 'next' : 'prev' });
         }
