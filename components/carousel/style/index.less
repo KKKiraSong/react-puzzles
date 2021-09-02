@@ -1,4 +1,5 @@
 @carouselPrefix: react-puzzles-carousel;
+@animationDuration: var(--animation-duration, 500ms);
 
 .@{carouselPrefix}-wrapper {
   position: relative;
@@ -19,7 +20,7 @@
     }
 
     &-animation {
-      transition: transform ease 0.3s;
+      transition: transform @animationDuration ease;
     }
   }
 }

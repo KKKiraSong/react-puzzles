@@ -9,7 +9,7 @@ import React, {
 import classnames from 'classnames';
 
 import { TrackProps, TrackRef, SlideChangeOption } from './interface';
-import { PREFIX_CLS } from './constants';
+import { PREFIX_CLS, DEFAULT_DURATION, SLIDE_RATE_OUT_OF_BOUNDS } from './constants';
 
 const Track = React.forwardRef<TrackRef, TrackProps>(
   (
@@ -18,6 +18,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
       slideWidth = 0,
       slideHeight = 0,
       infinite = true,
+      duration = DEFAULT_DURATION,
       threshhold = 0,
       vertical = false,
       autoplay = false,
@@ -224,7 +225,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
           const slideDistance = vertical
             ? e.touches[0].pageY - touchPointRef.current.y
             : e.touches[0].pageX - touchPointRef.current.x;
-          const slideRate = slideOutOfBounds(slideDistance) ? 0.5 : 1;
+          const slideRate = slideOutOfBounds(slideDistance) ? SLIDE_RATE_OUT_OF_BOUNDS : 1;
 
           if (!vertical) {
             trackRef.current.style.transform = `translate3d(${
@@ -316,6 +317,12 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
       },
       [animationPaused, currentSlide, React.Children.count(children), infinite],
     );
+
+    useEffect(() => {
+      if (trackRef.current) {
+        trackRef.current.style.setProperty('--animation-duration', `${duration}ms`);
+      }
+    }, [trackRef.current]);
 
     return (
       <div
