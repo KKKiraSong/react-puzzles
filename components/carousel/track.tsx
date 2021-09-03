@@ -23,6 +23,8 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
       vertical = false,
       autoplay = false,
       autoplayInterval = 2000,
+      beforeChange,
+      afterChange,
     }: TrackProps,
     ref: React.ForwardedRef<any>,
   ) => {
@@ -33,6 +35,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
     const trackRef = useRef<HTMLDivElement | null>(null);
     const touchPointRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
     const autoplayTimerRef = useRef<NodeJS.Timer>();
+    const prevSlideRef = useRef<number>(0);
 
     const renderSlides = useCallback(() => {
       const slides: React.ReactElement[] = [];
@@ -119,13 +122,25 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
         }
 
         if (targetSlide !== currentSlide) {
-          !animationFlag && setAnimationFlag(true);
-          setAnimationPaused(false);
+          duration > 0 && !animationFlag && setAnimationFlag(true);
+          duration > 0 && setAnimationPaused(false);
 
-          setCurrentSlide(targetSlide);
+          beforeChange &&
+            beforeChange(
+              currentSlide,
+              (targetSlide + React.Children.count(children)) % React.Children.count(children),
+            );
+
+          if (duration <= 0) {
+            setCurrentSlide(
+              (targetSlide + React.Children.count(children)) % React.Children.count(children),
+            );
+          } else {
+            setCurrentSlide(targetSlide);
+          }
         }
       },
-      [animationPaused, currentSlide, React.Children.count(children), infinite],
+      [animationPaused, currentSlide, React.Children.count(children), infinite, duration],
     );
 
     const trackTranslate: number | string = useMemo(() => {
@@ -257,7 +272,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
             return;
           }
 
-          setAnimationPaused(false);
+          duration > 0 && setAnimationPaused(false);
           setAnimationFlag(true);
           trackRef.current.style.transform = !vertical
             ? `translate3d(${trackTranslate}px, 0, 0)`
@@ -276,20 +291,26 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
         currentSlide,
         React.Children.count(children),
         infinite,
+        duration,
       ],
     );
 
     const transitionEnd = useCallback(() => {
       // 在禁用动画、动画状态为暂停的情况下，将slide切换到对应的非clone部分
-      setAnimationPaused(true);
+      duration > 0 && setAnimationPaused(true);
       setAnimationFlag(false);
 
       if (currentSlide > React.Children.count(children) - 1 || currentSlide < 0) {
         setCurrentSlide(
           (currentSlide + React.Children.count(children)) % React.Children.count(children),
         );
+      } else {
+        // 有过渡动画，且切换slide后，仍处于非clone区间的，在此（动画结束后）执行afterChange
+        // 无过渡动画的，在currentSlide发生变化后直接执行afterChange
+        // 切换slide后，处于clone区间的，不执行afterChange
+        afterChange && afterChange(currentSlide);
       }
-    }, [currentSlide, React.Children.count(children)]);
+    }, [currentSlide, React.Children.count(children), duration]);
 
     useEffect(() => {
       if (!autoplay) {
@@ -304,7 +325,40 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
         () => changeSlide({ message: 'next' }),
         autoplayInterval,
       );
+
+      return () => {
+        if (typeof autoplayTimerRef.current !== 'undefined') {
+          clearInterval(autoplayTimerRef.current);
+        }
+      };
     }, [autoplay, currentSlide, animationPaused]);
+
+    useEffect(() => {
+      if (trackRef.current) {
+        // CSS变量设置动画时间，如果小于0，则取0
+        trackRef.current.style.setProperty('--animation-duration', `${Math.max(0, duration)}ms`);
+      }
+    }, [trackRef.current]);
+
+    useEffect(() => {
+      // 仅切换slide后，处于非clone区间的，在此（changeSlide发生变化后）执行afterChange
+      // 另需要满足以下条件之一
+      // a.无过渡动画
+      // b.上一帧slide处于clone区间
+      // 有过渡动画并且上一帧也在非clone区间的，在过渡动画执行完后执行afterChange
+      if (
+        (duration <= 0 ||
+          prevSlideRef.current < 0 ||
+          prevSlideRef.current > React.Children.count(children) - 1) &&
+        0 <= currentSlide &&
+        currentSlide <= React.Children.count(children) - 1 &&
+        afterChange
+      ) {
+        afterChange(currentSlide);
+      }
+
+      prevSlideRef.current = currentSlide;
+    }, [currentSlide]);
 
     useImperativeHandle<TrackRef, {}>(
       ref,
@@ -317,12 +371,6 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
       },
       [animationPaused, currentSlide, React.Children.count(children), infinite],
     );
-
-    useEffect(() => {
-      if (trackRef.current) {
-        trackRef.current.style.setProperty('--animation-duration', `${duration}ms`);
-      }
-    }, [trackRef.current]);
 
     return (
       <div

@@ -9,6 +9,8 @@ type CarousePropsWithoutChildren = {
   autoplayInterval?: number;
   className?: string;
   style?: React.CSSProperties;
+  beforeChange?: (from: number, to: number) => void;
+  afterChange?: (current: number) => void;
 };
 export type CarouselProps = React.PropsWithChildren<CarousePropsWithoutChildren>;
 
@@ -16,7 +18,10 @@ export type TrackProps = React.PropsWithChildren<
   {
     slideWidth?: number;
     slideHeight?: number;
-  } & CarousePropsWithoutChildren
+  } & Pick<
+    CarousePropsWithoutChildren,
+    Exclude<keyof CarousePropsWithoutChildren, 'className' | 'style'>
+  >
 >;
 
 export interface SlideChangeOption {
