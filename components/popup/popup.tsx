@@ -31,7 +31,7 @@ const Popup = ({
 
   useEffect(() => {
     if (wrapperRef.current) {
-      wrapperRef.current.style.setProperty('--animation-duration', `${duration}ms`);
+      wrapperRef.current.style.setProperty('--animation-duration', `${Math.max(0, duration)}ms`);
     }
   }, [wrapperRef.current]);
 
