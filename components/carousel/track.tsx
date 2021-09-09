@@ -19,7 +19,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
       slideHeight = 0,
       infinite = true,
       duration = DEFAULT_DURATION,
-      threshhold = 0,
+      threshold = 0,
       vertical = false,
       autoplay = false,
       autoplayInterval = 2000,
@@ -258,7 +258,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
 
     const touchEnd = useCallback(
       (e: React.TouchEvent) => {
-        const validThreshhold = Math.min(Math.max(0, threshhold), 1);
+        const validThreshhold = Math.min(Math.max(0, threshold), 1);
         const slideDistance = vertical
           ? e.changedTouches[0].pageY - touchPointRef.current.y
           : e.changedTouches[0].pageX - touchPointRef.current.x;
@@ -283,7 +283,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
       },
       [
         vertical,
-        threshhold,
+        threshold,
         slideWidth,
         slideHeight,
         trackTranslate,

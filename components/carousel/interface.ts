@@ -2,7 +2,7 @@ import React from 'react';
 
 type CarousePropsWithoutChildren = {
   infinite?: boolean;
-  threshhold?: number;
+  threshold?: number;
   duration?: number;
   vertical?: boolean;
   autoplay?: boolean;

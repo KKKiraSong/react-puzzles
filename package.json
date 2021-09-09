@@ -1,6 +1,6 @@
 {
   "name": "react-puzzles",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -69,10 +69,7 @@
       "jest --bail --findRelatedTests",
       "git add"
     ],
-    "components/**/*.less": [
-      "stylelint --syntax less --fix",
-      "git add"
-    ]
+    "components/**/*.less": ["stylelint --syntax less --fix", "git add"]
   },
   "husky": {
     "hooks": {
