@@ -32,6 +32,8 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
         } else {
           setCarouselWrapperHeight(getHeight(wrapperRef.current));
         }
+
+        propsRef.current = { ...props, className, style };
       }
     });
 

@@ -114,7 +114,7 @@ const Popup = ({
 };
 
 Popup.propTypes = {
-  node: PropTypes.node,
+  node: PropTypes.instanceOf(HTMLElement),
   visible: PropTypes.bool,
   position: PropTypes.oneOf(['top', 'right', 'bottom', 'left', 'center']),
   duration: PropTypes.number,
