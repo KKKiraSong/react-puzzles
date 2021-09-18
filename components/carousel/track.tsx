@@ -253,7 +253,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
           }
         }
       },
-      [trackTranslate, vertical, touchPointRef.current.x, touchPointRef.current.y],
+      [trackTranslate, touchPointRef.current.x, touchPointRef.current.y],
     );
 
     const touchEnd = useCallback(
@@ -281,18 +281,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
           changeSlide({ message: slideDistance < 0 ? 'next' : 'prev' });
         }
       },
-      [
-        vertical,
-        threshold,
-        slideWidth,
-        slideHeight,
-        trackTranslate,
-        animationPaused,
-        currentSlide,
-        React.Children.count(children),
-        infinite,
-        duration,
-      ],
+      [threshold, trackTranslate, animationPaused, duration],
     );
 
     const transitionEnd = useCallback(() => {
