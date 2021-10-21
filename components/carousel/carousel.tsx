@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useImperativeHandle } from 'react';
 import { useMount } from 'react-use';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 import Track from './track';
 import { CarouselProps, CarouselRef } from './interface';
@@ -68,5 +69,18 @@ const Carousel = React.forwardRef<CarouselRef, CarouselProps>(
     );
   },
 );
+
+Carousel.propTypes = {
+  infinite: PropTypes.bool,
+  threshold: PropTypes.number,
+  duration: PropTypes.number,
+  vertical: PropTypes.bool,
+  autoplay: PropTypes.bool,
+  autoplayInterval: PropTypes.number,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  beforeChange: PropTypes.func,
+  afterChange: PropTypes.func,
+};
 
 export default Carousel;
