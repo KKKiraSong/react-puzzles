@@ -7,9 +7,15 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import classnames from 'classnames';
+import { throttle } from 'lodash';
 
 import { TrackProps, TrackRef, SlideChangeOption } from './interface';
-import { PREFIX_CLS, DEFAULT_DURATION, SLIDE_RATE_OUT_OF_BOUNDS } from './constants';
+import {
+  PREFIX_CLS,
+  DEFAULT_DURATION,
+  SLIDE_RATE_OUT_OF_BOUNDS,
+  TOUCH_MOVE_THROTTLE_WAIT,
+} from './constants';
 
 const Track = React.forwardRef<TrackRef, TrackProps>(
   (
@@ -224,6 +230,11 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
 
     const touchStart = useCallback(
       (e: React.TouchEvent) => {
+        // 如果正处于切换动画，阻止滑动操作
+        if (!animationPaused) {
+          return;
+        }
+
         if (autoplay && autoplayTimerRef.current) {
           clearInterval(autoplayTimerRef.current);
         }
@@ -231,11 +242,16 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
         touchPointRef.current.x = e.touches[0].pageX;
         touchPointRef.current.y = e.touches[0].pageY;
       },
-      [autoplay, autoplayTimerRef.current],
+      [animationPaused, autoplay, autoplayTimerRef.current],
     );
 
     const touchMove = useCallback(
-      (e: React.TouchEvent) => {
+      throttle((e: React.TouchEvent) => {
+        // 如果正处于切换动画，阻止滑动操作
+        if (!animationPaused) {
+          return;
+        }
+
         if (trackRef.current && typeof trackTranslate === 'number') {
           const slideDistance = vertical
             ? e.touches[0].pageY - touchPointRef.current.y
@@ -252,8 +268,8 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
             }px, 0)`;
           }
         }
-      },
-      [trackTranslate, touchPointRef.current.x, touchPointRef.current.y],
+      }, TOUCH_MOVE_THROTTLE_WAIT),
+      [animationPaused, trackTranslate, touchPointRef.current.x, touchPointRef.current.y],
     );
 
     const touchEnd = useCallback(
@@ -299,7 +315,7 @@ const Track = React.forwardRef<TrackRef, TrackProps>(
         // 切换slide后，处于clone区间的，不执行afterChange
         afterChange && afterChange(currentSlide);
       }
-    }, [currentSlide, React.Children.count(children), duration]);
+    }, [currentSlide, afterChange, React.Children.count(children), duration]);
 
     useEffect(() => {
       if (!autoplay) {
