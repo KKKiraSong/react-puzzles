@@ -1,0 +1,26 @@
+@carouselPrefix: react-puzzles-carousel;
+@animationDuration: var(--animation-duration, 500ms);
+
+.@{carouselPrefix}-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 200px;
+  overflow: hidden;
+
+  /* 启用GPU加速渲染 */
+  transform: translate3d(0, 0, 0);
+
+  .@{carouselPrefix}-track {
+    display: flex;
+    touch-action: pan-x;
+
+    &-vertical {
+      flex-direction: column;
+      touch-action: pan-y;
+    }
+
+    &-animation {
+      transition: transform @animationDuration ease;
+    }
+  }
+}
