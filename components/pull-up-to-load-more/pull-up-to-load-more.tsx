@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useCallback, useEffect } from 'react';
 import classnames from 'classnames';
 import { throttle } from 'lodash';
+import PropTypes from 'prop-types';
 
 import { PullUpToLoadMoreProps } from './interface';
 import { PREFIX_CLS, SCROLL_THROTTLE_WAIT } from './constants';
@@ -83,6 +84,19 @@ const PullUpToLoadMore = ({
       <div ref={indicatorRef}>{indicatorElement}</div>
     </div>
   );
+};
+
+PullUpToLoadMore.propTypes = {
+  scrollContainer: PropTypes.instanceOf(HTMLElement),
+  indicator: PropTypes.oneOf([PropTypes.object, PropTypes.string, PropTypes.number]),
+  threshold: PropTypes.bool,
+  loadMore: PropTypes.func,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  contentClassName: PropTypes.string,
+  contentStyle: PropTypes.object,
+  indicatorClassName: PropTypes.string,
+  indicatorStyle: PropTypes.object,
 };
 
 export default PullUpToLoadMore;
