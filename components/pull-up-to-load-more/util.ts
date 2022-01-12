@@ -1,5 +1,5 @@
 export const inView = (el: HTMLElement, threshold?: number) => {
-  const { top, right, bottom, left } = el.getBoundingClientRect();
+  const { top, bottom } = el.getBoundingClientRect();
 
   return (
     (top > 0 && top < window.innerHeight - (threshold || 0)) ||
