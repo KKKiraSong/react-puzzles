@@ -122,6 +122,8 @@ Popup.propTypes = {
   wrapperStyle: PropTypes.object,
   contentClassName: PropTypes.string,
   contentStyle: PropTypes.object,
+  maskClassName: PropTypes.string,
+  maskStyle: PropTypes.object,
   mask: PropTypes.bool,
   maskClosable: PropTypes.bool,
   destroyOnClose: PropTypes.bool,
